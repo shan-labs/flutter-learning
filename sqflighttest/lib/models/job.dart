@@ -1,65 +1,68 @@
 class Job {
-  int _id;
-  String _company;
-  String _location;
-  String _position;
-  String _description;
-  String _url;
 
-  Job(this._company, this._location, this._position, this._description,
-      this._url);
+	int _id;
+	String _title;
+	String _description;
+	String _date;
+	int _priority;
 
-  Job.withId(this._id, this._company, this._location, this._position,
-      this._description, this._url);
+	Note(this._title, this._date, this._priority, [this._description]);
 
-  int get id => _id;
-  String get company => _company;
-  String get location => _location;
-  String get position => _position;
-  String get description => _description;
-  String get url => _url;
+	Note.withId(this._id, this._title, this._date, this._priority, [this._description]);
 
-  set company(String newCompany) {
-    this._company = newCompany;
-  }
+	int get id => _id;
 
-  set location(String newLocation) {
-    this._location = newLocation;
-  }
+	String get title => _title;
 
-  set position(String newPosition) {
-    this._position = newPosition;
-  }
+	String get description => _description;
 
-  set description(String newDescription) {
-    this._description = newDescription;
-  }
+	int get priority => _priority;
 
-  set url(String newUrl) {
-    this._url = newUrl;
-  }
+	String get date => _date;
 
-// Convert Job to Map
-  Map<String, dynamic> toMap() {
-    Map<String, dynamic> map = Map<String, dynamic>();
-    if (id != null) {
-      map['id'] = id;
-    }
-    map['company'] = company;
-    map['location'] = location;
-    map['position'] = position;
-    map['description'] = description;
-    map['url'] = url;
-    return map;
-  }
+	set title(String newTitle) {
+		if (newTitle.length <= 255) {
+			this._title = newTitle;
+		}
+	}
 
-// Convert Map to Job
-  Job.fromMapObject(Map<String, dynamic> map) {
-    this._id = map['id'];
-    this._company = map['company'];
-    this._location = map['location'];
-    this._position = map['position'];
-    this._description = map['description'];
-    this._url = map['url'];
-  }
+	set description(String newDescription) {
+		if (newDescription.length <= 255) {
+			this._description = newDescription;
+		}
+	}
+
+	set priority(int newPriority) {
+		if (newPriority >= 1 && newPriority <= 2) {
+			this._priority = newPriority;
+		}
+	}
+
+	set date(String newDate) {
+		this._date = newDate;
+	}
+
+	// Convert a Note object into a Map object
+	Map<String, dynamic> toMap() {
+
+		var map = Map<String, dynamic>();
+		if (id != null) {
+			map['id'] = _id;
+		}
+		map['title'] = _title;
+		map['description'] = _description;
+		map['priority'] = _priority;
+		map['date'] = _date;
+
+		return map;
+	}
+
+	// Extract a Note object from a Map object
+	Note.fromMapObject(Map<String, dynamic> map) {
+		this._id = map['id'];
+		this._title = map['title'];
+		this._description = map['description'];
+		this._priority = map['priority'];
+		this._date = map['date'];
+	}
 }
